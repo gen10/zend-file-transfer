@@ -1456,7 +1456,9 @@ abstract class Zend_File_Transfer_Adapter_Abstract
     protected function _isPathWriteable($path)
     {
         $tempFile = rtrim($path, "/\\");
-        $tempFile .= '/' . 'test.1';
+        // SD17525 - Shipping Dox Required Error
+        // $tempFile .= '/' . 'test.1';
+        $tempFile .= '/' .  bin2hex(openssl_random_pseudo_bytes(16));
 
         $result = @file_put_contents($tempFile, 'TEST');
 
